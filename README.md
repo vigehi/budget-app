@@ -195,13 +195,9 @@ I would like to thank...
 
 > Add at least 2 questions new developers would ask when they decide to use your project.
 
-- **[Question_1]**
+- **[How to do a rails migration in changing a column]**
 
-  - [Answer_1]
-
-- **[Question_2]**
-
-  - [Answer_2]
+  - [rails generate migration change_column :groups, :user_id, null: true]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
