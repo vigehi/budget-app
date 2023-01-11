@@ -2491,3 +2491,21 @@ ActionView::Template::Error (undefined method `entities' for #<ActionView::Base:
   
 app/views/group/index.html.erb:5
 app/views/group/index.html.erb:4
+Started GET "/users/sign_out" for 127.0.0.1 at 2023-01-11 22:07:37 +0300
+Processing by Devise::SessionsController#destroy as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Redirected to http://localhost:3000/
+Completed 302 Found in 52ms (ActiveRecord: 11.9ms | Allocations: 6301)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-11 22:07:37 +0300
+Processing by GroupController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/splash.html.erb within layouts/application
+  Rendered users/splash.html.erb within layouts/application (Duration: 1.8ms | Allocations: 367)
+  Rendered shared/_navbar.html.erb (Duration: 1.4ms | Allocations: 393)
+  Rendered shared/_flash.html.erb (Duration: 1.1ms | Allocations: 223)
+  Rendered layout layouts/application.html.erb (Duration: 10.8ms | Allocations: 2663)
+Completed 200 OK in 15ms (Views: 13.2ms | ActiveRecord: 0.0ms | Allocations: 3385)
+
+
