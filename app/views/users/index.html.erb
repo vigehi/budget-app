@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="info-splash">My Budget Manager</h1>
+
+<div id="users">
+  <% @users.each do |user| %>
+    <%= render user %>
+    <p>
+      <%= link_to "Log In", user_session %>
+    </p>
+    
+  <% end %>
+</div>
+
+
+<div class="splash-btns">
+<%= link_to "Log In", user_session_path, {:class => "splash-link"} %>
+
+<%= link_to "Sign Up", new_user_path %>
+
+<%= link_to "Forgot Password", new_user_password_path %>
+</div>
