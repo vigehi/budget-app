@@ -13,143 +13,41 @@
  *= require_tree .
  *= require_self
  */
- @import "font-awesome";
 
-
- .body {
+* {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  overflow:hidden;
- }
-
-.info-splash {
-  margin: 180px auto;
-  font-family: 'Lobster', cursive;
-  text-align: center;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
 }
 
-.splash-btns {
-  display: flex;
-  flex-direction: column;
+.main-body {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.icon-image {
-  width: 90px;
-  height: 90px;
-  position: relative;
-  left: 10px;
-  top: 18px;
+.navbar {
+  background-color: #3778c2 !important;
 }
 
-.name-p {
-  position: relative;
-  left: 120px;
-  top: -60px;
+.navbar-brand {
+  color: white;
 }
 
-.amt-total {
-  position: relative;
-  left: 290px;
-  top: -70px;
-}
-
-.group-actions {
-  position: relative;
-  left: 120px;
-  top: -95px;
-}
-
-.my-btn {
-  width: 80%;
-  height: 45px;
-  margin: 10px auto;
-}
-
-.my-cstm-btn,
-.my-btn2 {
-  width: 80%;
-  height: 45px;
-  margin-top: 18px;
-  margin-left: 10vw;
-}
-
-.centering-items {
-  text-align: center;
-  margin: auto;
-}
-
-/* .field {
-  margin: 20px auto;
-} */
-.myclass {
-  display: flex;
-  justify-content: space-between;
-  background-color: #3778c2;
-  color: #fff;
-  align-items: center;
-  padding: 0 5px;
-}
-
-.back-link {
-  color: #fff;
-}
-
-.c-actions {
-  color: #fff;
+.fixed-bottom {
+  max-width: 600px;
+  margin: 16px auto;
+  background-color: #5fb523;
   border: none;
-  background-color: #3778c2;
 }
 
-.myclass p {
-  padding-top: 10px;
+.fixed-bottom:hover {
+  background-color: #306e03;
 }
 
-.form-field {
-  margin: 20px auto;
-}
-
-.field-login {
-  width: 100%;
+img {
+  width: 50px;
   height: 50px;
-  padding-left: 10px;
-}
-
-.field-remember {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.field-remember2 {
-  margin: 5px ;
-}
-
-.groups {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  background-color: blue;
-}
-
-.special-image-upload {
-  margin: 15px;
-}
-
-.user-info {
-  margin: 5px 15px;;
-
-}
-
-.payment {
-  display: flex;
-  justify-content: space-between;
-}
-
-.payment1 {
-  margin-left: 20px;
-}
-
-.payment2 {
-  margin-left: 20px;
 }

@@ -1,15 +1,24 @@
-<div class="myclass">
-  <%= link_to "Back", groups_path, class:"back-link" %>
-  <p>NEW ENTITY</p>
-  <div >
-  <%= link_to "Log Out", destroy_user_session_path,  class: "c-actions" %> 
+<div class="min_nav">
+  <%= link_to "", group_entities_path(@group), class: "fa fa-chevron-left fa-lg" %>
+  <h3 class="mb-3">New Transaction</h3>
+</div>
+<%= form_with model: @entity, url: group_entities_path, method: :post, data: { turbo: false } do |form| %>
+  <div class="mb-3">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control', placeholder: 'Transaction name' %>
   </div>
-</div>
+  <div class="mb-3">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: 'form-control', placeholder: 12, type: "number", step: ".01" %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
 
-<%= render "form", entity: @entity %>
 
-<br>
 
-<div>
-  <%= link_to "BACK TO ENTITIES", entities_path, class:"btn btn-light my-cstm-btn" %>
-</div>
+
+
+

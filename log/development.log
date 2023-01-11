@@ -1297,3 +1297,62 @@ Processing by Devise::SessionsController#create as TURBO_STREAM
 Completed 401 Unauthorized in 11ms (ActiveRecord: 0.5ms | Allocations: 1376)
 
 
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReferences (20230111172124)
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (56.8ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.2ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (60.5ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "group_id" bigint[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReferences (20230111172124)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (75.3ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (48.9ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "group_id" bigint[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReferences (20230111172124)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (63.2ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (70.2ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111172124"]]
+  [1m[36mTRANSACTION (19.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (2.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
