@@ -1,10 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<div class="myclass">
+  <%= link_to "Back", entities_path, class:"back-link" %>
+  <p>An Entity</p>
+  <div >
+  <%= link_to "Log Out", destroy_user_session_path,  class: "c-actions" %> 
+  </div>
+</div>
 
 <%= render @entity %>
-
+<p style="color: green"><%= notice %></p>
 <div>
-  <%= link_to "Edit this entity", edit_entity_path(@entity) %> |
-  <%= link_to "Back to entities", entities_path %>
+  <%= link_to "Edit this entity", edit_entity_path(@entity), class:"btn btn-light my-cstm-btn" %> 
 
-  <%= button_to "Destroy this entity", @entity, method: :delete %>
+  <%= button_to "Destroy this entity", @entity, method: :delete, class:"btn btn-light my-cstm-btn" %>
 </div>

@@ -1,4 +1,14 @@
+
+
 <%= form_with(model: group) do |form| %>
+  <div class="myclass">
+  <%= link_to "Back", groups_path, class:"back-link" %>
+    <p>ADD CATEGORY</p>
+    <div >
+    <%= link_to "Log Out", destroy_user_session_path,  class: "c-actions" %>
+    </div>
+  </div>
+
   <% if group.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
@@ -12,16 +22,15 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name,  placeholder: 'Name', class:"field-login" %>
+  </div>
+
+  <div class="special-image-upload">
+    <%= form.label :Image, style: "display: block" %>
+    <%= form.file_field :icon, class:"field-login" %>
   </div>
 
   <div>
-    <%= form.label :icon, style: "display: block" %>
-    <%= form.text_field :icon %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "submit", class:"btn btn-primary my-btn2" %>
   </div>
 <% end %>

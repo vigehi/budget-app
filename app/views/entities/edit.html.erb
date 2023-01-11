@@ -1,10 +1,15 @@
-<h1>Editing entity</h1>
+<div class="myclass">
+  <%= link_to "Back", entities_path, class:"back-link" %>
+  <p>An Entity</p>
+  <div >
+  <%= link_to "Log Out", destroy_user_session_path,  class: "c-actions" %> 
+  </div>
+</div>
 
 <%= render "form", entity: @entity %>
 
 <br>
 
 <div>
-  <%= link_to "Show this entity", @entity %> |
-  <%= link_to "Back to entities", entities_path %>
+  <%= link_to "Show this entity", @entity, class:"btn btn-light my-cstm-btn" %>
 </div>

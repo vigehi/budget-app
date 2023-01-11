@@ -1,4 +1,5 @@
 class Entity < ApplicationRecord
-  belongs_to :user
-  has_many :groups
+  belongs_to :user, class_name: 'User', foreign_key: 'author_id'
+  has_many :transactions
+  has_many :groups, through: :transactions
 end

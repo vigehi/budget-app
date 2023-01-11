@@ -1,56 +1,88 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# My Budget App
 
-> Description the project.
+> Budget app is about building a mobile web application where you can manage your budget
 
+
+## video demo
+[Video demo here]()
+
+
+## Heroku Deploy 🚀
+
+[Live demo here]()
 
 ## Built With
 
-- Major languages
-- Frameworks
-- Technologies used
+- Ruby
+- Ruby on Rails
+- RSpec, PostgreSQL
 
-## Live Demo (if available)
+## Configuration
 
-[Live Demo Link](https://livedemo.com)
+To use this project you first need to have installed the following:
 
++ Node.js
++ Ruby
++ PostgreSQL
++ Rails
 
-## Getting Started
+* Ruby version
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+The version of ruby that is needed for this project is
 
++ 3.1.1
 
-To get a local copy up and running follow these simple example steps.
+Once you have installed them, you need to use the following command to clone the repository:
 
-### Prerequisites
+```
+git clone https://github.com/vigehi/budget-app.git
+```
 
-### Setup
+### Database creation
 
-### Install
+Next, use this command to create the databases:
+```
+rails db:create
+```
 
-### Usage
+## Usage
 
-### Run tests
+Finally, use the following command to initialize the live server:
 
-### Deployment
+```
+rails s
+```
 
+```
 
+open on your browser "localhost:3000"
+```
+## How to run the tests
+
+before you run the tests
+
+```
+rails db:seed RAILS_ENV=test
+```
+
+```
+rspec spec
+```
+### or :
+```
+rspec spec/models
+rspec spec/views
+```
 
 ## Authors
 
-👤 **Author1**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+### 👤 **Edith oga**
 
-👤 **Author2**
+- GitHub: [@vigehi](https://github.com/vigehi)
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
 
 ## 🤝 Contributing
 
@@ -70,4 +102,4 @@ Give a ⭐️ if you like this project!
 
 ## 📝 License
 
-This project is [MIT](./MIT.md) licensed.
+This project is [MIT](./LICENSE) licensed.

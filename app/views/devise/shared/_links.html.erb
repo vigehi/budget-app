@@ -1,17 +1,17 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_session_path(resource_name) %><br />
+  <%= link_to "LOG IN", new_session_path(resource_name), class:"btn btn-light my-cstm-btn"  %><br />
 <% end %>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+  <%= link_to "SIGN UP", new_registration_path(resource_name), class:"btn btn-light my-cstm-btn" %><br />
 <% end %>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_password_path(resource_name) %><br />
+  <%= link_to "FORGOT YOUR PASSWORD?", new_password_path(resource_name), class:"btn btn-light my-cstm-btn" %><br />
 <% end %>
 
 <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name) %><br />
+  <%= link_to "DIDN'T RECEIVE CONFIRMATION ISTRUCTIONS?", new_confirmation_path(resource_name), class:"btn btn-light my-cstm-btn" %><br />
 <% end %>
 
 <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>

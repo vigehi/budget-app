@@ -1,14 +1,22 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Entities</h1>
+<div class="myclass">
+  <%= link_to "Back", groups_path, class:"back-link" %>
+  <p>Entitys</p>
+  <div >
+  <%= link_to "Log Out", destroy_user_session_path,  class: "c-actions" %> 
+  </div>
+</div>
 
 <div id="entities">
+<p style="color: green"><%= notice %></p>
   <% @entities.each do |entity| %>
     <%= render entity %>
-    <p>
+    <p class="user-info">
       <%= link_to "Show this entity", entity %>
     </p>
+    <hr>
   <% end %>
 </div>
 
-<%= link_to "New entity", new_entity_path %>
+<%= link_to "New entity", new_entity_path, class:"btn btn-light my-cstm-btn" %>
+
+<%= link_to "Go to Categories", groups_path, class:"btn btn-light my-cstm-btn" %>
