@@ -6,6 +6,7 @@ AllCops:
     - "node_modules/**/*"
     - "config/*"
     - "db/*"
+    - "db/migrate/*"
     - "spec/*"
 
   DisplayCopNames: true
