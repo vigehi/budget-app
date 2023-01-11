@@ -2509,3 +2509,573 @@ Processing by GroupController#index as HTML
 Completed 200 OK in 15ms (Views: 13.2ms | ActiveRecord: 0.0ms | Allocations: 3385)
 
 
+  [1m[35m (2439.2ms)[0m  [1m[35mCREATE DATABASE "budget_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (936.6ms)[0m  [1m[35mCREATE DATABASE "budget_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (156.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (115.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20230111154833)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (134.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111154833"]]
+  [1m[36mTRANSACTION (33.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20230111155211)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (58.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (120.8ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155211"]]
+  [1m[36mTRANSACTION (22.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroups (20230111155525)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (94.0ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "name" character varying, "icon" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155525"]]
+  [1m[36mTRANSACTION (19.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEntities (20230111155601)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (110.8ms)[0m  [1m[35mCREATE TABLE "entities" ("id" bigserial primary key, "name" character varying, "amount" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155601"]]
+  [1m[36mTRANSACTION (19.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddUserRefToEntities (20230111155655)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "entities" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (46.0ms)[0m  [1m[35mCREATE INDEX "index_entities_on_user_id" ON "entities" ("user_id")[0m
+  [1m[35m (2.6ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_71e168c975"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155655"]]
+  [1m[36mTRANSACTION (36.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserIdToAuthorId (20230111155708)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "entities" RENAME COLUMN "user_id" TO "author_id"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "index_entities_on_user_id" RENAME TO "index_entities_on_author_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155708"]]
+  [1m[36mTRANSACTION (6.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddUserRefToGroups (20230111155716)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "groups" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (44.0ms)[0m  [1m[35mCREATE INDEX "index_groups_on_user_id" ON "groups" ("user_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_5e78cd340a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155716"]]
+  [1m[36mTRANSACTION (14.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTransactions (20230111164027)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (99.2ms)[0m  [1m[35mCREATE TABLE "transactions" ("id" bigserial primary key, "name" character varying, "amount" integer, "category" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164027"]]
+  [1m[36mTRANSACTION (25.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGroupRefToTransactions (20230111164218)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "transactions" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (363.6ms)[0m  [1m[35mCREATE INDEX "index_transactions_on_user_id" ON "transactions" ("user_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "transactions" ADD CONSTRAINT "fk_rails_77364e6416"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164218"]]
+  [1m[36mTRANSACTION (14.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddAuthorIdToTransactions (20230111164327)
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164327"]]
+  [1m[36mTRANSACTION (24.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddEntityRefToTransactions (20230111164537)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "transactions" ADD "users_id" bigint NOT NULL[0m
+  [1m[35m (56.3ms)[0m  [1m[35mCREATE INDEX "index_transactions_on_users_id" ON "transactions" ("users_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "transactions" ADD CONSTRAINT "fk_rails_72614b1c1d"
+FOREIGN KEY ("users_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164537"]]
+  [1m[36mTRANSACTION (20.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUsersIdToAuthorId (20230111164608)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "transactions" RENAME COLUMN "users_id" TO "author_id"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "index_transactions_on_users_id" RENAME TO "index_transactions_on_author_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164608"]]
+  [1m[36mTRANSACTION (19.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameCategoryToGroupId (20230111164947)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "transactions" RENAME COLUMN "category" TO "group_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164947"]]
+  [1m[36mTRANSACTION (12.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20230111171105)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (90.5ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (55.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (99.2ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (42.9ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (54.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (99.6ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (97.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111171105"]]
+  [1m[36mTRANSACTION (21.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameAuthorIdToUserId (20230111171429)
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "entities" RENAME COLUMN "author_id" TO "user_id"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "index_entities_on_author_id" RENAME TO "index_entities_on_user_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111171429"]]
+  [1m[36mTRANSACTION (30.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroupEntities (20230111171822)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.5ms)[0m  [1m[35mCREATE TABLE "entities" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddReferences (20230111172124)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (81.0ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (58.9ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE "groups" ALTER COLUMN "user_id" TYPE bigint, ALTER COLUMN "user_id" DROP NOT NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111172124"]]
+  [1m[36mTRANSACTION (20.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-01-11 21:06:29.898720"], ["updated_at", "2023-01-11 21:06:29.898720"]]
+  [1m[36mTRANSACTION (21.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (888.1ms)[0m  [1m[35mCREATE DATABASE "budget_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (894.8ms)[0m  [1m[35mCREATE DATABASE "budget_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (167.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (120.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20230111154833)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (90.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111154833"]]
+  [1m[36mTRANSACTION (20.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddDeviseToUsers (20230111155211)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "users" ADD "email" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "encrypted_password" character varying DEFAULT '' NOT NULL[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_token" character varying[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "reset_password_sent_at" timestamp(6)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_created_at" timestamp(6)[0m
+  [1m[35m (63.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (89.5ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155211"]]
+  [1m[36mTRANSACTION (22.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroups (20230111155525)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (101.6ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "name" character varying, "icon" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155525"]]
+  [1m[36mTRANSACTION (21.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEntities (20230111155601)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (101.3ms)[0m  [1m[35mCREATE TABLE "entities" ("id" bigserial primary key, "name" character varying, "amount" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155601"]]
+  [1m[36mTRANSACTION (22.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddUserRefToEntities (20230111155655)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "entities" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (67.0ms)[0m  [1m[35mCREATE INDEX "index_entities_on_user_id" ON "entities" ("user_id")[0m
+  [1m[35m (2.1ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_71e168c975"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155655"]]
+  [1m[36mTRANSACTION (18.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUserIdToAuthorId (20230111155708)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "entities" RENAME COLUMN "user_id" TO "author_id"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER INDEX "index_entities_on_user_id" RENAME TO "index_entities_on_author_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155708"]]
+  [1m[36mTRANSACTION (7.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddUserRefToGroups (20230111155716)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "groups" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (47.2ms)[0m  [1m[35mCREATE INDEX "index_groups_on_user_id" ON "groups" ("user_id")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_5e78cd340a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111155716"]]
+  [1m[36mTRANSACTION (16.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTransactions (20230111164027)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (116.1ms)[0m  [1m[35mCREATE TABLE "transactions" ("id" bigserial primary key, "name" character varying, "amount" integer, "category" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164027"]]
+  [1m[36mTRANSACTION (18.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddGroupRefToTransactions (20230111164218)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "transactions" ADD "user_id" bigint NOT NULL[0m
+  [1m[35m (47.3ms)[0m  [1m[35mCREATE INDEX "index_transactions_on_user_id" ON "transactions" ("user_id")[0m
+  [1m[35m (1.6ms)[0m  [1m[35mALTER TABLE "transactions" ADD CONSTRAINT "fk_rails_77364e6416"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164218"]]
+  [1m[36mTRANSACTION (14.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddAuthorIdToTransactions (20230111164327)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164327"]]
+  [1m[36mTRANSACTION (14.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddEntityRefToTransactions (20230111164537)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "transactions" ADD "users_id" bigint NOT NULL[0m
+  [1m[35m (38.1ms)[0m  [1m[35mCREATE INDEX "index_transactions_on_users_id" ON "transactions" ("users_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "transactions" ADD CONSTRAINT "fk_rails_72614b1c1d"
+FOREIGN KEY ("users_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164537"]]
+  [1m[36mTRANSACTION (13.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameUsersIdToAuthorId (20230111164608)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "transactions" RENAME COLUMN "users_id" TO "author_id"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER INDEX "index_transactions_on_users_id" RENAME TO "index_transactions_on_author_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164608"]]
+  [1m[36mTRANSACTION (8.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameCategoryToGroupId (20230111164947)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "transactions" RENAME COLUMN "category" TO "group_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111164947"]]
+  [1m[36mTRANSACTION (9.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateActiveStorageTables (20230111171105)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (83.6ms)[0m  [1m[35mCREATE TABLE "active_storage_blobs" ("id" bigserial primary key, "key" character varying NOT NULL, "filename" character varying NOT NULL, "content_type" character varying, "metadata" text, "service_name" character varying NOT NULL, "byte_size" bigint NOT NULL, "checksum" character varying, "created_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (44.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_blobs_on_key" ON "active_storage_blobs" ("key")[0m
+  [1m[35m (108.3ms)[0m  [1m[35mCREATE TABLE "active_storage_attachments" ("id" bigserial primary key, "name" character varying NOT NULL, "record_type" character varying NOT NULL, "record_id" bigint NOT NULL, "blob_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_c3b3935057"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (43.3ms)[0m  [1m[35mCREATE INDEX "index_active_storage_attachments_on_blob_id" ON "active_storage_attachments" ("blob_id")[0m
+  [1m[35m (43.4ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_attachments_uniqueness" ON "active_storage_attachments" ("record_type", "record_id", "name", "blob_id")[0m
+  [1m[35m (99.6ms)[0m  [1m[35mCREATE TABLE "active_storage_variant_records" ("id" bigserial primary key, "blob_id" bigint NOT NULL, "variation_digest" character varying NOT NULL, CONSTRAINT "fk_rails_993965df05"
+FOREIGN KEY ("blob_id")
+  REFERENCES "active_storage_blobs" ("id")
+)[0m
+  [1m[35m (43.0ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_active_storage_variant_records_uniqueness" ON "active_storage_variant_records" ("blob_id", "variation_digest")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111171105"]]
+  [1m[36mTRANSACTION (15.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to RenameAuthorIdToUserId (20230111171429)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "entities" RENAME COLUMN "author_id" TO "user_id"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER INDEX "index_entities_on_author_id" RENAME TO "index_entities_on_user_id"[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111171429"]]
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddReferences (20230111172124)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (41.4ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (49.5ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "groups" ALTER COLUMN "user_id" TYPE bigint, ALTER COLUMN "user_id" DROP NOT NULL[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230111172124"]]
+  [1m[36mTRANSACTION (140.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-01-11 21:07:16.353497"], ["updated_at", "2023-01-11 21:07:16.353497"]]
+  [1m[36mTRANSACTION (9.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-01-12 00:08:19 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GroupController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/splash.html.erb within layouts/application
+  Rendered users/splash.html.erb within layouts/application (Duration: 43.3ms | Allocations: 769)
+  Rendered shared/_navbar.html.erb (Duration: 10.9ms | Allocations: 425)
+  Rendered shared/_flash.html.erb (Duration: 7.5ms | Allocations: 238)
+  Rendered layout layouts/application.html.erb (Duration: 1396.7ms | Allocations: 28521)
+Completed 200 OK in 1684ms (Views: 1573.3ms | ActiveRecord: 0.0ms | Allocations: 38172)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2023-01-12 00:09:01 +0300
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 22.2ms | Allocations: 277)
+  Rendered devise/shared/_links.html.erb (Duration: 18.1ms | Allocations: 724)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 292.6ms | Allocations: 7132)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 164)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 39)
+  Rendered layout layouts/application.html.erb (Duration: 296.8ms | Allocations: 8614)
+Completed 200 OK in 399ms (Views: 300.0ms | ActiveRecord: 5.4ms | Allocations: 16899)
+
+
+Started POST "/users" for 127.0.0.1 at 2023-01-12 00:09:11 +0300
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"edith", "email"=>"gfL@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+[31mUnpermitted parameter: :password_confirmation. Context: { controller: Devise::RegistrationsController, action: create, request: #<ActionDispatch::Request:0x00005653d53cb598>, params: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"edith", "email"=>"gfL@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up", "controller"=>"devise/registrations", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (1.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "gfl@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "created_at", "updated_at", "email", "encrypted_password", "reset_password_token", "reset_password_sent_at", "remember_created_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "edith"], ["created_at", "2023-01-11 21:09:12.236827"], ["updated_at", "2023-01-11 21:09:12.236827"], ["email", "gfl@gmail.com"], ["encrypted_password", "[FILTERED]"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil]]
+  [1m[36mTRANSACTION (80.6ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 644ms (ActiveRecord: 82.7ms | Allocations: 11752)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-12 00:09:12 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (14.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (2.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  Rendered group/index.html.erb within layouts/application (Duration: 32.7ms | Allocations: 2772)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 86)
+  Rendered shared/_flash.html.erb (Duration: 0.2ms | Allocations: 42)
+  Rendered layout layouts/application.html.erb (Duration: 38.0ms | Allocations: 4172)
+Completed 200 OK in 204ms (Views: 35.2ms | ActiveRecord: 18.7ms | Allocations: 13357)
+
+
+Started GET "/group/new" for 127.0.0.1 at 2023-01-12 00:09:15 +0300
+Processing by GroupController#new as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering group/new.html.erb within layouts/application
+  Rendered group/new.html.erb within layouts/application (Duration: 72.4ms | Allocations: 1609)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 83)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 34)
+  Rendered layout layouts/application.html.erb (Duration: 77.5ms | Allocations: 2980)
+Completed 200 OK in 101ms (Views: 78.6ms | ActiveRecord: 2.6ms | Allocations: 8124)
+
+
+Started POST "/group" for 127.0.0.1 at 2023-01-12 00:09:20 +0300
+Processing by GroupController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "group"=>{"name"=>"eerr", "icon"=>"https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"}, "commit"=>"Create category"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mGroup Create (1.3ms)[0m  [1m[32mINSERT INTO "groups" ("name", "icon", "created_at", "updated_at", "user_id", "author_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "eerr"], ["icon", "https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"], ["created_at", "2023-01-11 21:09:20.670445"], ["updated_at", "2023-01-11 21:09:20.670445"], ["user_id", nil], ["author_id", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (69.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+Redirected to http://localhost:3000/group
+Completed 302 Found in 261ms (ActiveRecord: 71.7ms | Allocations: 7647)
+
+
+Started GET "/group" for 127.0.0.1 at 2023-01-12 00:09:20 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  [1m[36mGroup Load (0.6ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:4
+  Rendered group/index.html.erb within layouts/application (Duration: 25.3ms | Allocations: 6150)
+  Rendered layout layouts/application.html.erb (Duration: 25.9ms | Allocations: 6230)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 1.9ms | Allocations: 7570)
+
+
+  
+ActionView::Template::Error (undefined method `entities' for #<ActionView::Base:0x00000000010fb8>):
+    2: 
+    3: <% if @groups.count > 0 %>
+    4:   <% @groups.each do |group| %>
+    5:     <%= link_to entities(group), class: "card mb-2" do %>
+    6:       <div class="card-body d-flex justify-content-between align-items-center">
+    7:         <%= image_tag group.icon || "http://localhost:3000/users/sign_up.jpg", class: 'card_icon' %>
+    8:         <div>
+  
+app/views/group/index.html.erb:5
+app/views/group/index.html.erb:4
+Started GET "/group" for 127.0.0.1 at 2023-01-12 00:10:08 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (2.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  [1m[36mGroup Load (1.4ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:4
+  Rendered group/index.html.erb within layouts/application (Duration: 23.2ms | Allocations: 6015)
+  Rendered layout layouts/application.html.erb (Duration: 24.3ms | Allocations: 6099)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 4.5ms | Allocations: 8327)
+
+
+  
+ActionView::Template::Error (undefined method `group' for #<ActionView::Base:0x00000000011328>):
+    2: 
+    3: <% if @groups.count > 0 %>
+    4:   <% @groups.each do |group| %>
+    5:     <%= link_to group(group), class: "card mb-2" do %>
+    6:       <div class="card-body d-flex justify-content-between align-items-center">
+    7:         <%= image_tag group.icon || "http://localhost:3000/users/sign_up.jpg", class: 'card_icon' %>
+    8:         <div>
+  
+app/views/group/index.html.erb:5
+app/views/group/index.html.erb:4
+Started GET "/group" for 127.0.0.1 at 2023-01-12 00:10:54 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  [1m[36mGroup Load (0.3ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:4
+  Rendered group/index.html.erb within layouts/application (Duration: 7.6ms | Allocations: 2735)
+  Rendered layout layouts/application.html.erb (Duration: 8.1ms | Allocations: 2819)
+Completed 500 Internal Server Error in 17ms (ActiveRecord: 1.5ms | Allocations: 4938)
+
+
+  
+ActionView::Template::Error (wrong number of arguments (given 1, expected 0)):
+    2: 
+    3: <% if @groups.count > 0 %>
+    4:   <% @groups.each do |group| %>
+    5:     <%= link_to group.entities(group), class: "card mb-2" do %>
+    6:       <div class="card-body d-flex justify-content-between align-items-center">
+    7:         <%= image_tag group.icon || "http://localhost:3000/users/sign_up.jpg", class: 'card_icon' %>
+    8:         <div>
+  
+app/views/group/index.html.erb:5
+app/views/group/index.html.erb:4
+Started GET "/group" for 127.0.0.1 at 2023-01-12 00:11:42 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  Rendered group/index.html.erb within layouts/application (Duration: 1.9ms | Allocations: 1267)
+  Rendered layout layouts/application.html.erb (Duration: 2.5ms | Allocations: 1352)
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 0.4ms | Allocations: 3483)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <h3 class="mb-3">Categories</h3>
+
+<% if @groups.count > 0 %>
+  <% @groups.each do |group| %>
+ 
+    <% end %>
+  <% end %>
+<% else %>
+  <p>You have no categories and new to continue</p>
+<% end %>
+<%= link_to 'Add Category', new_group_path, class: "btn btn-primary fixed-bottom" %>
+
+):
+1:    <h3 class="mb-3">Categories</h3>
+2:    
+3:    <% if @groups.count > 0 %>
+4:      <% @groups.each do |group| %>
+5:     
+6:        <% end %>
+7:      <% end %>
+8:    <% else %>
+9:      <p>You have no categories and new to continue</p>
+10:    <% end %>
+11:    <%= link_to 'Add Category', new_group_path, class: "btn btn-primary fixed-bottom" %>
+  
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+Started POST "/group" for 127.0.0.1 at 2023-01-12 00:11:49 +0300
+Processing by GroupController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "group"=>{"name"=>"eerr", "icon"=>"https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"}, "commit"=>"Create category"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mUser Load (5.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mGroup Create (1.2ms)[0m  [1m[32mINSERT INTO "groups" ("name", "icon", "created_at", "updated_at", "user_id", "author_id") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "eerr"], ["icon", "https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"], ["created_at", "2023-01-11 21:11:49.492935"], ["updated_at", "2023-01-11 21:11:49.492935"], ["user_id", nil], ["author_id", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (45.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+Redirected to http://localhost:3000/group
+Completed 302 Found in 75ms (ActiveRecord: 52.6ms | Allocations: 5037)
+
+
+Started GET "/group" for 127.0.0.1 at 2023-01-12 00:11:49 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  Rendered group/index.html.erb within layouts/application (Duration: 1.7ms | Allocations: 1205)
+  Rendered layout layouts/application.html.erb (Duration: 2.4ms | Allocations: 1284)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.4ms | Allocations: 2503)
+
+
+  
+ActionView::SyntaxErrorInTemplate (Encountered a syntax error while rendering template: check <h3 class="mb-3">Categories</h3>
+
+<% if @groups.count > 0 %>
+  <% @groups.each do |group| %>
+ 
+    <% end %>
+  <% end %>
+<% else %>
+  <p>You have no categories and new to continue</p>
+<% end %>
+<%= link_to 'Add Category', new_group_path, class: "btn btn-primary fixed-bottom" %>
+
+):
+1:    <h3 class="mb-3">Categories</h3>
+2:    
+3:    <% if @groups.count > 0 %>
+4:      <% @groups.each do |group| %>
+5:     
+6:        <% end %>
+7:      <% end %>
+8:    <% else %>
+9:      <p>You have no categories and new to continue</p>
+10:    <% end %>
+11:    <%= link_to 'Add Category', new_group_path, class: "btn btn-primary fixed-bottom" %>
+  
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+app/views/group/index.html.erb:8: else without rescue is useless
+app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
