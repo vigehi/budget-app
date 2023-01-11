@@ -75,7 +75,7 @@
 
 ### Key Features <a name="key-features"></a>
 
-> Describe between 1-3 key features of the application.
+> Below are the key features of the application.
 
 - **[Homepage]**
 - **[Login and sign up form]**
@@ -166,6 +166,18 @@ Example:
 
 - GitHub: [@vigehi](https://github.com/githubhandle)
 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+> Below are future features that i will add to my project
+
+- [ ] **[Category Api token]**
+- [ ] **[Transactions Api token]**
+- [ ] **[Users]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
