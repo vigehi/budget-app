@@ -15,10 +15,10 @@ class EntitiesController < ApplicationController
     @entity = current_user.entities.create(entity_params)
     puts @entity
     if @entity.save
-      @group_entity = @entity.group_entities.create(group_id: @group.id, entity_id: @entity.id)
+      @group_entity = @entity.entities.create(group_id: @group.id, entity_id: @entity.id)
       if @group_entity.save
         flash[:notice] = 'Transaction created successfully'
-        redirect_to group_entities_path(@group)
+        redirect_to entities_path(@group)
       else
         flash.now[:alert] = 'An error occuerd , Transaction category creation failed'
         render action: 'new'

@@ -53,12 +53,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_11_172124) do
     t.index ["user_id"], name: "index_entities_on_user_id"
   end
 
+  create_table "group_entities", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "author_id"
     t.index ["author_id"], name: "index_groups_on_author_id"
     t.index ["user_id"], name: "index_groups_on_user_id"
