@@ -3,7 +3,7 @@
 
 </div>
 
-<!-- TABLE OF CONTENT -->
+<!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
 
@@ -209,9 +209,8 @@ If you like this project...
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-> Give credit to everyone who inspired your codebase.
-
-I would like to thank Microverse faculty and staff for the inspiration to work on the project
+I would like to thank Microverse and all our peers and colleagues there.
+- Original design idea by [Gregoire Vella on Behance](https://www.behance.net/gregoirevella).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
