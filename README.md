@@ -3,7 +3,7 @@
 
 </div>
 
-<!-- TABLE OF CONTENTS -->
+<!-- TABLE OF CONTENT -->
 
 # 📗 Table of Contents
 
