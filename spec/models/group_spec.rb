@@ -1,23 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
-  before :each do
-    @u = User.new(name: 'test', password: 'testpass', email: 'test@test.com')
-    @u.save
+  subject do
+    user = User.create(name: 'Chris siku', password: '123456', email: 'chris1@gmail.com')
+    Group.new(name: 'Bike', icon: 'https://icon.com/icon.jpg', author: user)
   end
 
-  subject do
-    @p = Group.new(name: 'test', icon: Rack::Test::UploadedFile.new('spec/fixtures/files/01 (3).jpg', 'image/jpg'))
-  end
   before { subject.save }
 
-  describe 'validate data' do
-    it 'it should have a name' do
+  context 'Test for validation : ' do
+    it 'Name should be valid' do
+      expect(subject).to be_valid
+    end
+
+    it 'Name should be present' do
       subject.name = nil
       expect(subject).to_not be_valid
     end
 
-    it 'should have an icon image' do
+    it 'Icon should be present' do
       subject.icon = nil
       expect(subject).to_not be_valid
     end

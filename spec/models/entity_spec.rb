@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  include Devise::Test::IntegrationHelpers
+RSpec.describe Entity, type: :model do
   subject do
-    User.new(name: 'Chris siku', password: '123456', email: 'chris2@gmail.com')
+    user = User.create(name: 'Chris siku', password: '123456', email: 'chris@gmail.com')
+    Entity.new(name: 'Ford 150', amount: '100', author: user)
   end
 
   before { subject.save }
@@ -18,8 +18,8 @@ RSpec.describe User, type: :model do
       expect(subject).to_not be_valid
     end
 
-    it 'Email should be present' do
-      subject.email = nil
+    it 'Amount should be present' do
+      subject.amount = nil
       expect(subject).to_not be_valid
     end
   end
