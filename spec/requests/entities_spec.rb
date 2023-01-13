@@ -7,5 +7,4 @@ RSpec.describe 'Entities', type: :request do
     @group = @user.groups.create(name: 'Toyota', icon: 'https://icon.com/icon.jpg')
     sign_in @user
   end
-  
 end
