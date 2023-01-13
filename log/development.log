@@ -3079,3 +3079,391 @@ app/views/group/index.html.erb:8: else without rescue is useless
 app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
 app/views/group/index.html.erb:8: else without rescue is useless
 app/views/group/index.html.erb:14: syntax error, unexpected `end', expecting end-of-input
+  [1m[35m (1359.4ms)[0m  [1m[35mCREATE DATABASE "budget_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (1313.2ms)[0m  [1m[35mCREATE DATABASE "budget_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (125.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (118.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20221010094935)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (105.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "name" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (42.9ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (43.3ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221010094935"]]
+  [1m[36mTRANSACTION (23.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEntities (20221010101247)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (110.5ms)[0m  [1m[35mCREATE TABLE "entities" ("id" bigserial primary key, "name" character varying, "amount" decimal, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221010101247"]]
+  [1m[36mTRANSACTION (15.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroups (20221010101634)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (145.8ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "name" character varying, "icon" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221010101634"]]
+  [1m[36mTRANSACTION (19.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroupEntities (20221010101822)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (44.9ms)[0m  [1m[35mCREATE TABLE "group_entities" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221010101822"]]
+  [1m[36mTRANSACTION (23.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddReferences (20221010102124)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (45.1ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.9ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (47.8ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "group_id" bigint[0m
+  [1m[35m (71.7ms)[0m  [1m[35mCREATE INDEX "index_group_entities_on_group_id" ON "group_entities" ("group_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "group_entities" ADD CONSTRAINT "fk_rails_af2d1a29c6"
+FOREIGN KEY ("group_id")
+  REFERENCES "groups" ("id")
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "entity_id" bigint[0m
+  [1m[35m (40.0ms)[0m  [1m[35mCREATE INDEX "index_group_entities_on_entity_id" ON "group_entities" ("entity_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "group_entities" ADD CONSTRAINT "fk_rails_d82e1772e2"
+FOREIGN KEY ("entity_id")
+  REFERENCES "entities" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221010102124"]]
+  [1m[36mTRANSACTION (17.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-01-13 07:49:10.368755"], ["updated_at", "2023-01-13 07:49:10.368755"]]
+  [1m[36mTRANSACTION (12.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-01-13 10:49:50 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GroupController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/splash.html.erb within layouts/application
+  Rendered users/splash.html.erb within layouts/application (Duration: 3.4ms | Allocations: 769)
+  Rendered shared/_navbar.html.erb (Duration: 1.5ms | Allocations: 429)
+  Rendered shared/_flash.html.erb (Duration: 1.3ms | Allocations: 238)
+  Rendered layout layouts/application.html.erb (Duration: 255.0ms | Allocations: 31292)
+Completed 200 OK in 294ms (Views: 264.2ms | ActiveRecord: 0.0ms | Allocations: 40761)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2023-01-13 10:49:54 +0300
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 19.5ms | Allocations: 277)
+  Rendered devise/shared/_links.html.erb (Duration: 1.5ms | Allocations: 724)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 73.6ms | Allocations: 7138)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 164)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 39)
+  Rendered layout layouts/application.html.erb (Duration: 77.7ms | Allocations: 8614)
+Completed 200 OK in 107ms (Views: 80.2ms | ActiveRecord: 6.6ms | Allocations: 16924)
+
+
+Started POST "/users" for 127.0.0.1 at 2023-01-13 10:50:02 +0300
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"dfghjhgf", "email"=>"gfL@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+[31mUnpermitted parameter: :password_confirmation. Context: { controller: Devise::RegistrationsController, action: create, request: #<ActionDispatch::Request:0x00007fab5c809558>, params: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"dfghjhgf", "email"=>"gfL@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up", "controller"=>"devise/registrations", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "gfl@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "name", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "gfl@gmail.com"], ["encrypted_password", "[FILTERED]"], ["name", "dfghjhgf"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-01-13 07:50:03.133435"], ["updated_at", "2023-01-13 07:50:03.133435"]]
+  [1m[36mTRANSACTION (112.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 548ms (ActiveRecord: 114.5ms | Allocations: 11713)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-13 10:50:03 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (0.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  Rendered group/index.html.erb within layouts/application (Duration: 13.9ms | Allocations: 2724)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 86)
+  Rendered shared/_flash.html.erb (Duration: 0.2ms | Allocations: 42)
+  Rendered layout layouts/application.html.erb (Duration: 19.1ms | Allocations: 4126)
+Completed 200 OK in 44ms (Views: 17.2ms | ActiveRecord: 4.0ms | Allocations: 13342)
+
+
+Started GET "/group/new" for 127.0.0.1 at 2023-01-13 10:50:05 +0300
+Processing by GroupController#new as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering group/new.html.erb within layouts/application
+  Rendered group/new.html.erb within layouts/application (Duration: 33.1ms | Allocations: 1609)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 83)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 34)
+  Rendered layout layouts/application.html.erb (Duration: 37.6ms | Allocations: 2982)
+Completed 200 OK in 55ms (Views: 39.2ms | ActiveRecord: 2.6ms | Allocations: 7728)
+
+
+Started POST "/group" for 127.0.0.1 at 2023-01-13 10:50:10 +0300
+Processing by GroupController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "group"=>{"name"=>"wfgb", "icon"=>"https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"}, "commit"=>"Create category"}
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mGroup Create (0.9ms)[0m  [1m[32mINSERT INTO "groups" ("name", "icon", "created_at", "updated_at", "author_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "wfgb"], ["icon", "https://mail.google.com/mail/u/0/#inbox/FMfcgzGqQvwcBLFsDSHkBPwVZwdplwhV.jpg"], ["created_at", "2023-01-13 07:50:10.587119"], ["updated_at", "2023-01-13 07:50:10.587119"], ["author_id", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (40.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+Redirected to http://localhost:3000/group
+Completed 302 Found in 73ms (ActiveRecord: 47.1ms | Allocations: 7630)
+
+
+Started GET "/group" for 127.0.0.1 at 2023-01-13 10:50:10 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (3.7ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  [1m[36mGroup Load (0.5ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:4
+  Rendered group/index.html.erb within layouts/application (Duration: 36.8ms | Allocations: 29652)
+  Rendered layout layouts/application.html.erb (Duration: 37.2ms | Allocations: 29741)
+Completed 500 Internal Server Error in 45ms (ActiveRecord: 4.5ms | Allocations: 31076)
+
+
+  
+SystemStackError (stack level too deep):
+  
+app/views/group/index.html.erb:13
+app/views/group/index.html.erb:5
+app/views/group/index.html.erb:4
+Started GET "/" for 127.0.0.1 at 2023-01-13 11:00:24 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 5 pending migrations:
+
+20230113104935_devise_create_users.rb
+20230113105147_create_entities.rb
+20230113105434_create_groups.rb
+20230113105822_create_group_entities.rb
+20230113105924_add_references.rb
+
+
+):
+  
+activerecord (7.0.3) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.3) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.3) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.3) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.3) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.3) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.3) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.3) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.3) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.3) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.3) lib/active_support/tagged_logging.rb:114:in `block in tagged'
+activesupport (7.0.3) lib/active_support/tagged_logging.rb:38:in `tagged'
+activesupport (7.0.3) lib/active_support/tagged_logging.rb:114:in `tagged'
+railties (7.0.3) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3.1) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3.1) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.3) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/server_timing.rb:20:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.3.1) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.3) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.3) lib/rails/engine.rb:530:in `call'
+puma (5.6.4) lib/puma/configuration.rb:252:in `call'
+puma (5.6.4) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.4) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.4) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.4) lib/puma/server.rb:441:in `process_client'
+puma (5.6.4) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       [1m[35m (2624.8ms)[0m  [1m[35mCREATE DATABASE "budget_app_development" ENCODING = 'unicode'[0m
+  [1m[35m (922.9ms)[0m  [1m[35mCREATE DATABASE "budget_app_test" ENCODING = 'unicode'[0m
+  [1m[35m (149.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (118.0ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to DeviseCreateUsers (20230113104935)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (140.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "name" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp(6), "remember_created_at" timestamp(6), "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (42.7ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (42.6ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_reset_password_token" ON "users" ("reset_password_token")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230113104935"]]
+  [1m[36mTRANSACTION (16.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEntities (20230113105147)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (80.0ms)[0m  [1m[35mCREATE TABLE "entities" ("id" bigserial primary key, "name" character varying, "amount" decimal, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230113105147"]]
+  [1m[36mTRANSACTION (21.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroups (20230113105434)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (94.0ms)[0m  [1m[35mCREATE TABLE "groups" ("id" bigserial primary key, "name" character varying, "icon" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230113105434"]]
+  [1m[36mTRANSACTION (18.9ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateGroupEntities (20230113105822)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (50.0ms)[0m  [1m[35mCREATE TABLE "group_entities" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230113105822"]]
+  [1m[36mTRANSACTION (18.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddReferences (20230113105924)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "entities" ADD "author_id" bigint[0m
+  [1m[35m (48.6ms)[0m  [1m[35mCREATE INDEX "index_entities_on_author_id" ON "entities" ("author_id")[0m
+  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "entities" ADD CONSTRAINT "fk_rails_8f3b7c2c9e"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "groups" ADD "author_id" bigint[0m
+  [1m[35m (93.1ms)[0m  [1m[35mCREATE INDEX "index_groups_on_author_id" ON "groups" ("author_id")[0m
+  [1m[35m (1.1ms)[0m  [1m[35mALTER TABLE "groups" ADD CONSTRAINT "fk_rails_2599af8863"
+FOREIGN KEY ("author_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "group_id" bigint[0m
+  [1m[35m (38.9ms)[0m  [1m[35mCREATE INDEX "index_group_entities_on_group_id" ON "group_entities" ("group_id")[0m
+  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "group_entities" ADD CONSTRAINT "fk_rails_af2d1a29c6"
+FOREIGN KEY ("group_id")
+  REFERENCES "groups" ("id")
+[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "group_entities" ADD "entity_id" bigint[0m
+  [1m[35m (49.4ms)[0m  [1m[35mCREATE INDEX "index_group_entities_on_entity_id" ON "group_entities" ("entity_id")[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE "group_entities" ADD CONSTRAINT "fk_rails_d82e1772e2"
+FOREIGN KEY ("entity_id")
+  REFERENCES "entities" ("id")
+[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230113105924"]]
+  [1m[36mTRANSACTION (24.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-01-13 12:05:43.595008"], ["updated_at", "2023-01-13 12:05:43.595008"]]
+  [1m[36mTRANSACTION (28.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(2127889314188895495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2023-01-13 15:06:02 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by GroupController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/splash.html.erb within layouts/application
+  Rendered users/splash.html.erb within layouts/application (Duration: 45.4ms | Allocations: 769)
+  Rendered shared/_navbar.html.erb (Duration: 22.4ms | Allocations: 428)
+  Rendered shared/_flash.html.erb (Duration: 1.6ms | Allocations: 238)
+  Rendered layout layouts/application.html.erb (Duration: 601.7ms | Allocations: 28963)
+Completed 200 OK in 871ms (Views: 760.4ms | ActiveRecord: 0.0ms | Allocations: 38432)
+
+
+Started GET "/users/sign_up" for 127.0.0.1 at 2023-01-13 15:06:08 +0300
+Processing by Devise::RegistrationsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/registrations/new.html.erb within layouts/application
+  Rendered devise/shared/_error_messages.html.erb (Duration: 21.8ms | Allocations: 309)
+  Rendered devise/shared/_links.html.erb (Duration: 2.7ms | Allocations: 724)
+  Rendered devise/registrations/new.html.erb within layouts/application (Duration: 256.3ms | Allocations: 7174)
+  Rendered shared/_navbar.html.erb (Duration: 0.5ms | Allocations: 164)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 39)
+  Rendered layout layouts/application.html.erb (Duration: 260.4ms | Allocations: 8652)
+Completed 200 OK in 352ms (Views: 270.0ms | ActiveRecord: 6.9ms | Allocations: 16961)
+
+
+Started POST "/users" for 127.0.0.1 at 2023-01-13 15:06:21 +0300
+Processing by Devise::RegistrationsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"dfghjhgf", "email"=>"name@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up"}
+[31mUnpermitted parameter: :password_confirmation. Context: { controller: Devise::RegistrationsController, action: create, request: #<ActionDispatch::Request:0x00007f6e4441b090>, params: {"authenticity_token"=>"[FILTERED]", "user"=>{"name"=>"dfghjhgf", "email"=>"name@gmail.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Sign up", "controller"=>"devise/registrations", "action"=>"create"} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists? (1.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "name@gmail.com"], ["LIMIT", 1]]
+  [1m[36mUser Create (3.8ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "name", "reset_password_token", "reset_password_sent_at", "remember_created_at", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "name@gmail.com"], ["encrypted_password", "[FILTERED]"], ["name", "dfghjhgf"], ["reset_password_token", "[FILTERED]"], ["reset_password_sent_at", "[FILTERED]"], ["remember_created_at", nil], ["created_at", "2023-01-13 12:06:21.783671"], ["updated_at", "2023-01-13 12:06:21.783671"]]
+  [1m[36mTRANSACTION (17.5ms)[0m  [1m[35mCOMMIT[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 668ms (ActiveRecord: 23.2ms | Allocations: 11737)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-13 15:06:21 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (1.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  Rendered group/index.html.erb within layouts/application (Duration: 23.6ms | Allocations: 2728)
+  Rendered shared/_navbar.html.erb (Duration: 0.4ms | Allocations: 86)
+  Rendered shared/_flash.html.erb (Duration: 0.3ms | Allocations: 42)
+  Rendered layout layouts/application.html.erb (Duration: 30.2ms | Allocations: 4130)
+Completed 200 OK in 189ms (Views: 28.5ms | ActiveRecord: 5.0ms | Allocations: 13305)
+
+
+Started GET "/group/new" for 127.0.0.1 at 2023-01-13 15:06:26 +0300
+Processing by GroupController#new as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering group/new.html.erb within layouts/application
+  Rendered group/new.html.erb within layouts/application (Duration: 75.2ms | Allocations: 8532)
+  Rendered shared/_navbar.html.erb (Duration: 0.3ms | Allocations: 83)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 34)
+  Rendered layout layouts/application.html.erb (Duration: 79.3ms | Allocations: 9905)
+Completed 200 OK in 104ms (Views: 80.8ms | ActiveRecord: 4.2ms | Allocations: 14635)
+
+
+Started POST "/group" for 127.0.0.1 at 2023-01-13 15:06:32 +0300
+Processing by GroupController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "group"=>{"name"=>"eerr", "icon"=>"https://play.google.com/console/QE9WRVJBTExA.jpg"}, "commit"=>"Create category"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mGroup Create (1.1ms)[0m  [1m[32mINSERT INTO "groups" ("name", "icon", "created_at", "updated_at", "author_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "eerr"], ["icon", "https://play.google.com/console/QE9WRVJBTExA.jpg"], ["created_at", "2023-01-13 12:06:33.004598"], ["updated_at", "2023-01-13 12:06:33.004598"], ["author_id", 1]]
+  ↳ app/controllers/group_controller.rb:18:in `create'
+  [1m[36mTRANSACTION (64.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/group_controller.rb:18:in `create'
+Redirected to http://localhost:3000/group
+Completed 302 Found in 244ms (ActiveRecord: 66.7ms | Allocations: 7636)
+
+
+Started GET "/group" for 127.0.0.1 at 2023-01-13 15:06:33 +0300
+Processing by GroupController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/group_controller.rb:5:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering group/index.html.erb within layouts/application
+  [1m[36mGroup Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:3
+  [1m[36mGroup Load (0.4ms)[0m  [1m[34mSELECT "groups".* FROM "groups" WHERE "groups"."author_id" = $1[0m  [["author_id", 1]]
+  ↳ app/views/group/index.html.erb:4
+  Rendered group/index.html.erb within layouts/application (Duration: 71.3ms | Allocations: 29652)
+  Rendered layout layouts/application.html.erb (Duration: 71.8ms | Allocations: 29741)
+Completed 500 Internal Server Error in 78ms (ActiveRecord: 1.3ms | Allocations: 31094)
+
+
+  
+SystemStackError (stack level too deep):
+  
+app/views/group/index.html.erb:13
+app/views/group/index.html.erb:5
+app/views/group/index.html.erb:4
