@@ -1,7 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :update_allowed_parameters, if: :devise_controller?
+  before_action :update_devise_permitted_parameters, if: :devise_controller?
 
-  def update_allowed_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password) }
+  protected
+
+  def update_devise_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up) do |user_params|
+      user_params.permit(:name, :email, :password, :password_confirmation)
+    end
   end
 end
