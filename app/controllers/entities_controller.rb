@@ -1,35 +1,36 @@
 class EntitiesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_group
+  before_action :set_entity, only: [:edit, :update, :destroy]
+
   def index
-    @group = current_user.groups.find(params[:group_id])
     @entities = @group.entities
   end
 
   def new
-    @group = current_user.groups.find(params[:group_id])
     @entity = @group.entities.new
   end
 
   def create
-    @group = current_user.groups.find(params[:group_id])
-    @entity = current_user.entities.create(entity_params)
-    puts @entity
+    @entity = @group.entities.new(entity_params)
     if @entity.save
-      @group_entity = @entity.entities.create(group_id: @group.id, entity_id: @entity.id)
-      if @group_entity.save
-        flash[:notice] = 'Transaction created successfully'
-        redirect_to entities_path(@group)
-      else
-        flash.now[:alert] = 'An error occuerd , Transaction category creation failed'
-        render action: 'new'
-      end
+      flash[:notice] = 'Transaction created successfully'
+      redirect_to group_entities_path(@group)
     else
-      flash.now[:alert] = 'An error occuerd , Transaction creation failed'
+      flash.now[:alert] = 'Transaction creation failed'
       render action: 'new'
     end
-  end
+      end
 
   private
+
+  def set_group
+    @group = current_user.groups.find(params[:group_id])
+  end
+
+  def set_entity
+    @entity = @group.entities.find(params[:id])
+  end
 
   def entity_params
     params.require(:entity).permit(:name, :amount)
